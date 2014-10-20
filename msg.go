@@ -880,7 +880,7 @@ func unpackStructValue(val reflect.Value, msg []byte, off int) (off1 int, err er
 
 	defer func() {
 		if r := recover(); r != nil {
-			return lenmsg, &Error{r}
+			fmt.Println("Error: ", r.String())
 		}
 	}()
 
