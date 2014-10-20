@@ -877,6 +877,13 @@ func packStructCompress(any interface{}, msg []byte, off int, compression map[st
 func unpackStructValue(val reflect.Value, msg []byte, off int) (off1 int, err error) {
 	var rdend int
 	lenmsg := len(msg)
+
+	defer func() {
+		if r := recover(); r != nil {
+			return lenmsg, &Error{"WTF!!!"}
+		}
+	}()
+
 	for i := 0; i < val.NumField(); i++ {
 		if off > lenmsg {
 			return lenmsg, &Error{"bad offset unpacking"}
